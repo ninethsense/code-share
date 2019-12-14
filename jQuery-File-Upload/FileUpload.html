@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Multiple file upload using jquery</title>
+		<!--
+		* Script by Praveen
+		* http://blog.ninethsense.com
+		-->
+    </head>
+    <body>
+            
+        <input type="button" value="Choose file" id="fup" />
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>    
+        
+        <script>
+                $(function() {
+                    
+                    // Show file upload dialog on click of button
+                    $("#fup").click(function(){
+
+                        //Create File component
+                        var fu = document.createElement("input");
+                        fu.type = "file";
+                        fu.id="fuc";
+                        $(fu).attr("multiple","");
+						
+						// Trigger file selection event
+                        $(fu).change(function(){
+                            var fd = new FormData();
+                            $.each($(fu)[0].files, function(i, file){
+                                fd.append('file[]', file);
+                            });
+                            
+							// Send fd to server
+                            $.ajax({
+                                url:"FileUpload.php",
+                                type: 'POST',
+                                data:fd,
+								cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function(d) {
+                                    console.log(d);
+                                }
+                            });
+                        });
+                        
+						// To invoke the file selection dialog box
+                        $(fu).click();
+
+                    });
+                    
+                        
+                    
+                });
+        </script>
+    </body>
+    
+</html>
