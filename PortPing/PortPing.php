@@ -54,7 +54,7 @@
 						document.getElementById("console").innerHTML += this.responseText;
 					}
 				};
-				xhttp.open("GET", "PortPing.php?source=self&host=<?=$host?>&port=<?=$port?>", true);
+				xhttp.open("GET", "<?=$_SERVER['PHP_SELF']?>?source=self&host=<?=$host?>&port=<?=$port?>", true);
 				xhttp.send();
 				if (++count > <?=$t-1?>) {
 					clearInterval(intervalID);
