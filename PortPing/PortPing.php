@@ -7,7 +7,7 @@
 	if (!isset($_GET["host"]) || !isset($_GET["port"]) ){
 		die("Usage: /PortPing.php?host=target_name&port=port_number[&t=n]<br><br>Example: /PortPing.php?host=google.com&port=80");
 	}
-	$t =(isset($_GET["t"]))?$_GET["t"]:4; // default 4 pings.
+	$t =(isset($_GET["t"]))?$_GET["t"]:4; // default 4 pings. 
 	$ip = gethostbyname($host);
 	
 	if (isset($_GET["source"])) {
@@ -54,6 +54,7 @@
 						document.getElementById("console").innerHTML += this.responseText;
 					}
 				};
+				// Risk of DDOS :-P
 				xhttp.open("GET", "<?=$_SERVER['PHP_SELF']?>?source=self&host=<?=$host?>&port=<?=$port?>", true);
 				xhttp.send();
 				if (++count > <?=$t-1?>) {
