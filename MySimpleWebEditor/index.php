@@ -5,11 +5,20 @@
      *  
      */
 
-    if ( isset($_POST["c"]) )  {
-        $content = $_POST["c"];
-        echo  (file_put_contents("temp.txt", $content))?"1":"-1";
+    $f = $fn = "";
+    if (count($_GET) == 1)  {
+        $f = key($_GET);
+        $fn = "$f.html";
+    } else {
         die();
     }
+
+     if ( isset($_POST["c"]) )  {
+        $content = $_POST["c"];
+        echo  (file_put_contents($fn, $content))?"1":"-1";
+        die();
+    }
+   
 ?>
 <html>
     <head>
@@ -28,7 +37,7 @@
             #editor {
                 font-family: monospace;
             }
-            #preview {
+            #preview, a {
                 font-family: Arial, Helvetica, sans-serif;
             }
             [placeholder]:empty::before {
@@ -44,6 +53,7 @@
     <body>
         <div id="tb">
             <input type="button" value="Save" onclick="Save()" /><span id="saved"></span>
+            <a href="preview.php?<?=$f?>" target="_blank" style="float:right;font-size:8pt">[Preview]</a>
         </div>
         <div style="display: flex;height:90%">
             
@@ -76,7 +86,7 @@
                 };
                 var formData = new FormData();
                 formData.append("c", editor.innerText);
-                xhttp.open("POST", "<?= $_SERVER["PHP_SELF"] ?>", true);
+                xhttp.open("POST", "<?= $_SERVER["PHP_SELF"]. "?$f" ?>", true);
                 xhttp.send(formData);
 
             }
@@ -92,9 +102,12 @@
                 ele.innerText = "Couldn't Auto-save. Will retry soon" ;
             }
             window.onload = function() {
-                <?php                
+                <?php
+                    $content = "";                
                     if ( $_SERVER['REQUEST_METHOD'] != 'POST' ) {
-                        $content = file_get_contents("temp.txt");
+                        if (file_exists($fn)) {
+                            $content = file_get_contents($fn);
+                        } 
                         echo "editor.innerText = `$content`;";
                     }
                 ?>
