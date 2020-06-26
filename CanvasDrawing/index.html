@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <style>
+            #c {
+              display: flex;
+                width:100%;
+                height:100%;
+            }
+            #t {
+              width:100%;
+            }
+            .col {
+              flex:1;min-height:80%;
+              background-color: #eee;
+              margin:1px 1px;
+            }
+            #e {
+              font-family: monospace;
+              font-weight: bold;
+              font-size:12pt;
+              caret-color: red;
+            }
+        </style>
+    </head>
+    <body>
+      <div style="display:flex;min-height:80%;border:solid 1px black;">
+        <div id="e" class="col" contenteditable>
+          മായ്‌ക്കുക<br>
+          രേഖ (ഇടത്=100, മുകൾ=100, വീതി=200, ഉയരം =200)<br>
+          വൃത്തം (ഇടത്=200, മുകൾ=200, ആരം=50, നിറം ="പച്ച" )<br>
+          ചതുരം (ഇടത്=50, മുകൾ=50, വീതി=300, ഉയരം=200)<br>
+          ചതുരം (ഇടത്=50, മുകൾ=50, വീതി=300, ഉയരം=200, നിറം = "ചുവപ്പ്")<br>
+          രേഖ (ഇടത്=100, മുകൾ=100, വീതി=200, ഉയരം =300,  നിറം ="#0000ff")
+        </div>
+        <div class="col">
+          <canvas id="c"></canvas>
+            <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+          </svg>
+        </div>
+      </div>
+      
+      <input type="button" value="Draw" id="ok" />
+      
+
+    <script>
+      var c = document.getElementById("c");
+      c.width = c.offsetWidth;
+      c.height = c.offsetHeight;
+      var cx = c.getContext("2d");
+      
+      document.getElementById("ok").addEventListener("click", function(){
+        
+        var pgm = document.getElementById("e").innerText;
+        var lines = pgm.split("\n");
+        
+        lines.forEach(function(stmt, i) {
+          if (!stmt.trim()) return;
+          
+          var cmd = stmt.split(/{|\(| /)[0];
+          
+          var params = stmt.replace(cmd, "" ).replace(/=/g,":").replace(/\(/g,"{").replace(/\)/g,"}");
+          
+
+          params = params.replace(/ഇടത്|മുകൾ|ആരം|വീതി|ഉയരം|നിറം/gi, function(matched){
+                  return {
+                    "ഇടത്":"\"left\"", 
+                    "മുകൾ":"\"top\"", 
+                    "ആരം":"\"radius\"",
+                    "വീതി":"\"width\"",
+                    "ഉയരം":"\"height\"",
+                    "നിറം":"\"color\""
+                  }[matched];
+                });
+          var col = {"പച്ച":"#00ff00", "ചുവപ്പ്":"#ff0000", "നീല":"#0000ff"};
+                
+          var j = {};
+          try {
+            j = JSON.parse( params );
+            
+          } catch {
+            if (cmd != "മായ്‌ക്കുക") {
+              Err();
+              return;
+            }
+          }
+
+          if ('color' in j) {
+            if (j.color in col) {
+              cx.strokeStyle = col[j.color];
+            } else {
+              cx.strokeStyle = j.color;
+            }
+          } else {
+            cx.strokeStyle = "#000";
+          }
+          
+          cx.beginPath();
+          switch(cmd) {
+            case "മായ്‌ക്കുക":
+              cx.clearRect(0,0,c.offsetWidth,c.offsetHeight);
+              break;
+            case "വൃത്തം":
+              if ( !Number.isInteger(j.left) || !Number.isInteger(j.top) || !Number.isInteger(j.radius)) {
+                Err();
+              }
+                cx.arc(j.left, j.top,j.radius,0, 2 * Math.PI, false);
+              break;
+            case "രേഖ":
+              cx.moveTo(j.left, j.top);
+              cx.lineTo(j.width, j.height);
+              break;
+            case "ചതുരം":
+              cx.rect(j.left, j.top, j.width, j.height);
+              break;
+            default:
+              Err();
+              break;
+          }
+          function Err() {
+            alert(`Syntax Error in "${cmd}" at line ${i+1}`);
+          }
+
+          if (cmd != "മായ്‌ക്കുക") cx.stroke();
+          cx.closePath();
+        });
+      });
+      
+    </script>
+    </body>
+</html>
