@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <style>
+            #c {
+              display: flex;
+                width:100%;
+                min-height:100%;
+            }
+            #t {
+              width:100%;
+            }
+            .col {
+              flex:1;min-height:80%;
+              background-color: #eee;
+              margin:1px 1px;
+            }
+            #e {
+              font-family: monospace;
+              font-weight: bold;
+              font-size:14pt;
+              caret-color: red;
+            }
+
+        </style>
+    </head>
+    <body>
+      <div style="display:flex;min-height:80%;border:solid 1px black;">
+        <div id="e" class="col" contenteditable>
+          clear<br>
+          line (left=100, top=100, width=200, height=200)<br>
+          circle (left=200, top=200, radius=50)<br>
+          rectangle (left=50, top=50, width=300, height=200)<br>
+        </div>
+        <div class="col">
+          <canvas id="c"></canvas>
+            <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+          </svg>
+        </div>
+      </div>
+      
+      <input type="button" value="Draw" id="ok" />
+      
+
+    <script>
+      var c = document.getElementById("c");
+      c.width = c.offsetWidth;
+      c.height = c.offsetHeight;
+      var cx = c.getContext("2d");
+      
+      document.getElementById("ok").addEventListener("click", function(){
+        
+        var pgm = document.getElementById("e").innerText;
+        var lines = pgm.split("\n");
+        
+        lines.forEach(function(stmt, i) {
+          if (!stmt.trim()) return;
+          
+          var cmd = stmt.split(/{|\(| /)[0];
+          
+          var params = stmt.replace(cmd, "" ).replace(/=/g,":").replace(/\(/g,"{").replace(/\)/g,"}");
+          
+
+          params = params.replace(/left|top|radius|width|height/gi, function(matched){
+                  return {
+                    "left":"\"left\"", 
+                    "top":"\"top\"", 
+                    "radius":"\"radius\"",
+                    "width":"\"width\"",
+                    "height":"\"height\"",
+                  }[matched];
+                });
+                
+          try {
+            var j = JSON.parse( params );
+          } catch {
+            if (cmd != "clear") {
+              Err();
+              return;
+            }
+          }
+
+
+          cx.beginPath();
+          switch(cmd) {
+            case "clear":
+            
+              //cx.fillStyle = "red";
+              //cx.fillRect(0,0,c.offsetWidth,c.offsetHeight);
+              cx.clearRect(0,0,c.offsetWidth,c.offsetHeight);
+              break;
+            case "circle":
+              if ( !Number.isInteger(j.left) || !Number.isInteger(j.top) || !Number.isInteger(j.radius)) {
+                Err();
+              }
+                cx.arc(j.left, j.top,j.radius,0, 2 * Math.PI, false);
+              break;
+            case "line":
+              cx.moveTo(j.left, j.top);
+              cx.lineTo(j.width, j.height);
+              break;
+            case "rectangle":
+              cx.rect(j.left, j.top, j.width, j.height);
+              break;
+
+            default:
+              Err();
+              break;
+          }
+          function Err() {
+            alert(`Syntax Error in "${cmd}" at line ${i+1}`);
+          }
+
+          if (cmd != "clear") cx.stroke();
+                
+          
+          cx.closePath();
+          
+          
+          
+        });
+      });
+      
+
+
+      
+    </script>
+    </body>
+</html>

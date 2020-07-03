@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <style>
+            body {
+                margin: 0 0;   
+                overflow:hidden;
+                cursor:url(pencil1.cur), auto;
+                touch-action: none;
+            }
+            #d {
+                display: flex;
+            }
+            #sb {
+                background-color: #ddd;
+                box-shadow: 2px 2px 5px;
+                text-align: center;
+                width:4%;
+                padding: 2 2;
+            }
+            #sb input {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 8pt;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="sb">
+        <input type="button" value="CLEAR" id="clear" />
+    </div>
+    <canvas id="d"></div>
+
+    <script>
+        var d = document.getElementById("d");
+        d.width = window.innerWidth;
+        d.height = window.innerHeight;
+        var ctx = d.getContext("2d");
+        ctx.lineWidth = 3;
+        px=0, py=0;clk=false;
+
+  
+        
+        startdraw = function(e) {
+            px = e.clientX - d.offsetLeft;
+            py = e.clientY - d.offsetTop;
+            clk = true; 
+        }
+
+        draw = function(e) {
+            
+            if (clk) {
+                e = e.touches?e.touches[0]:e;
+                ctx.beginPath();
+                ctx.moveTo(px,py);
+                px = e.clientX - d.offsetLeft;
+                py = e.clientY - d.offsetTop;
+                ctx.lineTo(px,py);
+                ctx.strokeStyle = '#ff0000';
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+
+        document.getElementById("clear").addEventListener("click", function() {
+            if (confirm("Are you sure you want to clear the whiteboard?")) {
+                ctx.clearRect(0,0,d.width,d.height);
+            }
+        });
+       
+        d.addEventListener("touchstart", startdraw);
+        d.addEventListener("mousemove", draw, false);
+        d.addEventListener("mousedown", startdraw, false);
+        d.addEventListener("touchmove", draw, false);
+        d.addEventListener("mouseup", function() { clk = false });
+        d.addEventListener("touchend", function() { clk = false });
+
+    </script>
+    </body>
+</html>
