@@ -18,6 +18,8 @@ namespace PwdGen
         static string GeneratePassword(int MinLength, int MaxLength)
         {
             string ValidChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;<>|=.,_-~!?&%@#$£€°^*§()+[] ";
+            string SpecialChars = "!@#$%^&*()";
+            
             string pwd = string.Empty;
 
             Random rnd = new Random(Guid.NewGuid().GetHashCode());
@@ -37,8 +39,8 @@ namespace PwdGen
                 IsSplChr = false;
                 NoRepeat = true;
                 NoSeq = true;
-                string SpecialChars = "!@#$%^&*()";
-                pwd = string.Join("", Enumerable.Repeat(ValidChars, rnd.Next(MinLength, MaxLength + 1)).Select(s => s[rnd.Next(s.Length)]).ToArray());
+                
+                pwd = string.Join(string.Empty, Enumerable.Repeat(ValidChars, rnd.Next(MinLength, MaxLength + 1)).Select(s => s[rnd.Next(s.Length)]).ToArray());
                 for (int i = 0; i < pwd.Length; i++)
                 {
                     // Contains at least 1 lower case letter and 1 upper case letter (all UTF-8), at least 1 number
