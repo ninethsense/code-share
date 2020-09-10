@@ -1,3 +1,6 @@
+Language: C#
+.NET Version tested: v4.8
+
 This code snippet generates strong password of any length using custom rules.
 
 ## Rules
