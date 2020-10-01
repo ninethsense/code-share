@@ -1,1 +1,27 @@
-test
+<script>
+	const zeroPad = (num, places) => String(num).padStart(places, '0')
+	function ku() {
+		var i = document.getElementById("i");
+		var o = document.getElementById("o");
+		
+		if (i.value.trim().length == 0) {
+			i.value = "0/12345/2005";
+		}
+		
+		var v = i.value.split("/");
+		if (v.length == 3) {
+			o.value =  "KL" + zeroPad(v[0], 2)  +  zeroPad(v[2], 4) + zeroPad(v[1], 7);
+		} else {
+			o.value = "Invlid DL #";
+		}
+	}
+</script>
+
+Old Driving License Number:<br> <input type="text" id="i" placeholder="0/12345/2005"  />
+<br><br>
+<input type="button" value="Convert" onclick="ku()" />
+<br><br>
+New<br>	
+<input type="text" id="o">
+
+
