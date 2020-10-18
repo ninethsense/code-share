@@ -11,8 +11,36 @@ namespace PwdGen
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(GeneratePassword(8, 15));
+            //Console.WriteLine(GeneratePassword2(8, 15));
+			//Console.WriteLine(GeneratePassword(8, 15));
             Console.ReadKey();
+        }
+
+		static string GeneratePassword2(int MinLength, int MaxLength)
+        {
+
+            string ValidChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;<>|=.,_-~!?&%@#$£€°^*§()+[] ";
+            string SpecialChars = "!@#$%^&*()";
+            
+            string pwd = string.Empty;
+
+            do
+            {
+                Random rnd = new Random(Guid.NewGuid().GetHashCode());
+                pwd = string.Join(string.Empty, Enumerable.Repeat(ValidChars, rnd.Next(MinLength, MaxLength + 1)).Select(s => s[rnd.Next(s.Length)]).ToArray());
+                Console.WriteLine(pwd);
+            } while (
+
+                Regex.Match(pwd, "[a-zA-Z]{3,}").Success || // Not more than 3 chars in sequence
+                Regex.Match(pwd, @"(\w)\1{2,}").Success || //Same number should not repeat more than 2 times
+                Regex.Match(pwd, "[1-9]{3,}").Success ||    // Not more than 3 numbers in sequence
+                !Regex.Match(pwd, "[A-Z]").Success ||       // At least one upper case char
+                !Regex.Match(pwd, "[a-z]").Success ||       // At least one lower case char
+                !Regex.Match(pwd, "[1-9]").Success ||         // At least one number
+                (pwd.ToArray().Where(l => SpecialChars.ToArray().Any(l2 => l2 == l)).Count() == 0) // At least one pre defined special char
+                );
+            
+            return pwd;
         }
 
         static string GeneratePassword(int MinLength, int MaxLength)
