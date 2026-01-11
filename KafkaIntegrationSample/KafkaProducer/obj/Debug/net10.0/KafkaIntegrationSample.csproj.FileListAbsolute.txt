@@ -1,0 +1,14 @@
+D:\Projects\KafkaIntegrationSample\bin\Debug\net10.0\KafkaIntegrationSample.exe
+D:\Projects\KafkaIntegrationSample\bin\Debug\net10.0\KafkaIntegrationSample.deps.json
+D:\Projects\KafkaIntegrationSample\bin\Debug\net10.0\KafkaIntegrationSample.runtimeconfig.json
+D:\Projects\KafkaIntegrationSample\bin\Debug\net10.0\KafkaIntegrationSample.dll
+D:\Projects\KafkaIntegrationSample\bin\Debug\net10.0\KafkaIntegrationSample.pdb
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.AssemblyInfoInputs.cache
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.AssemblyInfo.cs
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.csproj.CoreCompileInputs.cache
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.dll
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\refint\KafkaIntegrationSample.dll
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.pdb
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\KafkaIntegrationSample.genruntimeconfig.cache
+D:\Projects\KafkaIntegrationSample\obj\Debug\net10.0\ref\KafkaIntegrationSample.dll
