@@ -40,6 +40,25 @@ Dive into object-oriented programming:
 - **Encapsulation**: Private variables and public methods
 - **Data Abstraction**: Abstract base classes and methods
 
+### 5. **Learn Python - 05 NumPy**
+Master numerical computing with NumPy:
+- **Basic Arrays**: Creating and accessing arrays
+- **Array Attributes**: Understanding shape, dtype, ndim, and size
+- **Array Creation**: zeros, ones, arange, linspace, random arrays
+- **Sorting and Arrangement**: Sorting arrays and concatenation
+- **Array Reshaping**: Changing array dimensions
+- **Array Arithmetic**: Element-wise operations and dot products
+- **Mathematical Functions**: Trigonometric and statistical functions
+
+### 6. **Learn Python - 06 Pandas**
+Work with data structures and analysis using Pandas:
+- **DataFrames**: Creating and manipulating data frames
+- **Data Selection**: Accessing rows and columns
+- **Data Exploration**: head(), tail(), describe() methods
+- **Finding Elements**: Filtering and locating specific data
+- **Data I/O**: Saving and loading data in CSV format
+- **Multiple Formats**: Working with Excel, JSON, HTML, and SQL data sources
+
 ## 🚀 Getting Started
 
 ### Prerequisites
