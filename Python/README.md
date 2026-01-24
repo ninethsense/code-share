@@ -59,6 +59,13 @@ Work with data structures and analysis using Pandas:
 - **Data I/O**: Saving and loading data in CSV format
 - **Multiple Formats**: Working with Excel, JSON, HTML, and SQL data sources
 
+### 7. **Learn Python - 07 Asyncio**
+Master asynchronous programming with asyncio:
+- **What is Asyncio**: Understanding asynchronous I/O and concurrent code
+- **Basic asyncio example**: Writing simple async/await functions
+- **Fetching Data with async/await**: Non-blocking operations and data retrieval
+- **Event Loop Timing**: Understanding event loop execution and timing
+
 ## 🚀 Getting Started
 
 ### Prerequisites
