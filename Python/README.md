@@ -66,6 +66,13 @@ Master asynchronous programming with asyncio:
 - **Fetching Data with async/await**: Non-blocking operations and data retrieval
 - **Event Loop Timing**: Understanding event loop execution and timing
 
+### 8. **Learn Python - 08 Flask API**
+Build simple web APIs with Flask:
+- **Basic Flask endpoint**: Creating routes and returning JSON responses
+- **Query parameters**: Reading values from the request URL
+- **GET and POST examples**: Handling query strings and JSON payloads
+- **Runnable examples**: Launchable snippets demonstrating endpoints
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -74,7 +81,7 @@ Master asynchronous programming with asyncio:
 
 ### How to Use
 1. Clone or download this repository
-2. Open the notebooks in sequential order (01 → 04)
+2. Open the notebooks in sequential order (01 → 08)
 3. Run the code cells to see outputs and experiment with modifications
 4. Each notebook contains practical examples with detailed comments
 
